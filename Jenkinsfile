@@ -1,28 +1,3 @@
-// pipeline {
-//     agent any
-//     stages {
-//         stage('Build Jar') {
-//             steps {
-//                 sh "mvn clean package -DskipTests"
-//             }
-//         }
-//         stage('Build Image') {
-//             steps {
-//                 sh "docker build -t='janeuniqacc/selenium-docker' ."
-//             }
-//         }
-//         stage('Push Image') {
-//             steps {
-// 			    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
-//                     //sh
-// 			        bat "docker login --username=${user} --password=${pass}"
-// 			        bat "docker push vinsdocker/selenium-docker:latest"
-// 			    }
-//             }
-//         }
-//     }
-// }
-
 pipeline {
     agent none
     stages {
@@ -44,15 +19,15 @@ pipeline {
                 }
             }
         }
-        stage('Push Image') {
-            steps {
-                script {
-			        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-			        	app.push("${BUILD_NUMBER}")
-			            app.push("latest")
-			        }
-                }
-            }
-        }
+//         stage('Push Image') {
+//             steps {
+//                 script {
+// 			        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+// 			        	app.push("${BUILD_NUMBER}")
+// 			            app.push("latest")
+// 			        }
+//                 }
+//             }
+//         }
     }
 }
